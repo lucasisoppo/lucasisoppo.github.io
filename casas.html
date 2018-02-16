@@ -17,7 +17,7 @@
 	<!-- Custom styles for this template -->
 	<link href="css/carousel.css" rel="stylesheet">
 	<link href="css/estilos.css" rel="stylesheet">
-	<script src="controller/casas.js"></script> 
+	<script src="controller/casas.js"></script>
 	<script src="js/angular.min.js"></script>
 </head>
 <body ng-controller="casasController">
@@ -50,7 +50,7 @@
 			<div class="form-group row">
 				<label class="col-sm-2 col-form-label" for="proprietario">Proprietario</label>
 				<div class="col-sm-10" align="left">
-					<select class="form-control" ng-model="casa.proprietario" ng-options="proprietario.nome for proprietario in pessoas track by proprietario.codigo">
+					<select class="form-control" ng-model="casa.pessoasModel" ng-options="proprietario.nome for proprietario in pessoas track by proprietario.codigo">
 						
 					</select>
 				</div>		  
@@ -86,7 +86,7 @@
 						<th>{{tabelaCasas.codigo}}</th>
 						<th>{{tabelaCasas.endereco}}</th>
 						<th>{{tabelaCasas.valor}}</th>
-						<th>{{tabelaCasas.proprietario.nome}}</th>	
+						<th>{{tabelaCasas.pessoasModel.nome}}</th>
 					</tr>
 				</tbody>
 			</table>

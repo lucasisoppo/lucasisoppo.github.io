@@ -35,7 +35,7 @@
 		   <div class="form-group row">
 		   	<label class="col-sm-2 col-form-label8" for="codigo">Codigo</label>
 		  	 <div class="col-sm-10" align="left">
-		   		<input type="text"  class="form-control" ng-model="pessoa.codigo" id="codigo" placeholder="Codigo">
+		   		<input type="text" readonly class="form-control" ng-model="pessoa.codigo" id="codigo" placeholder="Codigo">
 		   	 </div>
 		  </div>
 		  <div class="form-group row">
@@ -55,9 +55,9 @@
 		  <br>
 
 		  <div class="container" align="center">
-			  <button type="novo" ng-click="limparCampos()" class="btn btn-success">Novo</button>
-			  <button type="salvar" ng-disabled="!pessoa.codigo || !pessoa.nome" ng-click="salvar()" class="btn btn-primary">Salvar</button>
-			  <button type="excluir" ng-click="excluir()" class="btn btn-danger">Excluir</button>
+			  <button type="submit" ng-click="limparCampos()" class="btn btn-success">Novo</button>
+			  <button type="submit" ng-disabled="!pessoa.nome" ng-click="salvar()" class="btn btn-primary">Salvar</button>
+			  <button type="submit" ng-click="excluir()" class="btn btn-danger">Excluir</button>
 			  <input class="form-group mr-sm-2" type="search" ng-model="pesquisaPessoas" placeholder="Pesquisar">
   		  </div>
 		
@@ -96,7 +96,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-3.2.1.slim.min.js"></script>
-	 <script src="js/bootstrap.min.js"></script> 
-     
+	 <script src="js/bootstrap.min.js"></script>
+
   </body>
 </html>

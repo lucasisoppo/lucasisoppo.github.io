@@ -1,33 +1,70 @@
-casasModulo = angular.module('casasModulo', []);
+var casasModulo = angular.module('casasModulo', []);
 
-casasModulo.controller("casasController", function ($scope) 
-	{
-	$scope.casas = [
-		{codigo: 1, endereco: "Rua x Nro 916", valor: 1000, proprietario:{codigo: 1, nome: "Lucas", sobrenome: "Isoppo"}},
-		{codigo: 2, endereco: "Rua x Nro 917", valor: 2000, proprietario:{codigo: 2, nome: "Miguel", sobrenome: "Isoppo"}},
-		{codigo: 3, endereco: "Rua x Nro 918", valor: 3000, proprietario:{codigo: 3, nome: "Daniela", sobrenome: "Isoppo"}},
-		{codigo: 4, endereco: "Rua x Nro 919", valor: 4000, proprietario:{codigo: 4, nome: "Silvio", sobrenome: "Isoppo"}},
-		];
+casasModulo.controller("casasController", function ($scope, $http) {
+    urlPessoas = 'http://localhost:3000/SistemaImoveis-1.0/rest/pessoas';
+    urlCasas = 'http://localhost:3000/SistemaImoveis-1.0/rest/casas';
 
-	$scope.pessoas = [
-		{codigo: 1, nome: "Lucas", sobrenome: "Isoppo"},
-		{codigo: 2, nome: "Miguel", sobrenome: "Isoppo"},
-		{codigo: 3, nome: "Daniela", sobrenome: "Isoppo"},
-		{codigo: 4, nome: "Silvio", sobrenome: "Isoppo"}
-		];	
-		
-	$scope.selecionaCasas = function(casaSelecionada){
-		$scope.casa = casaSelecionada;
-		}
-	$scope.limparCampos = function () {
-		$scope.casa = "";
-		}
-	$scope.salvar = function() {
-		$scope.casas.push($scope.casa);
-		$scope.limparCampos();
-		}
-	$scope.excluir = function(){
-		$scope.casas.splice($scope.casas.indexOf($scope.casa),1);
-		$scope.limparCampos();
-		}
-	});
+    $scope.listarCasas = function () {
+        $http.get(urlCasas).success(function (casas) {
+            $scope.casas = casas;
+        }).error(function (erro) {
+            alert(erro);
+        });
+    }
+
+    $scope.listarPessoas = function () {
+        $http.get(urlPessoas).success(function (pessoas) {
+            $scope.pessoas = pessoas;
+        }).error(function (erro) {
+            alert(erro);
+        });
+    }
+
+    $scope.selecionaCasas = function (casaSelecionada) {
+        $scope.casa = casaSelecionada;
+    }
+    $scope.limparCampos = function () {
+        $scope.casa = "";
+    }
+
+    $scope.salvar = function () {
+        if ($scope.casa.codigo == undefined) {
+            console.log('Caiu no POST');
+            $http.post(urlCasas, $scope.casa).success(function (casa) {
+              //  $scope.casas.push($scope.casa);
+                $scope.listarCasas();
+                $scope.limparCampos();
+            }).error(function (erro) {
+                alert(erro);
+            });
+
+        } else {
+            console.log('Caiu no PUT');
+            $http.put(urlCasas, $scope.casa).success(function (casa) {
+                $scope.listarCasas();
+                $scope.limparCampos();
+            }).error(function (erro) {
+                alert(erro);
+            });
+        }
+
+    }
+
+    $scope.excluir = function () {
+        if ($scope.casa.codigo == undefined) {
+            console.log('Sem casa selecionada')
+        } else {
+            $http.delete(urlCasas+'/'+$scope.casa.codigo).success(function(){
+                $scope.listarCasas();
+                $scope.limparCampos();
+            }).error(function (erro) {
+                alert(erro);
+            });
+        }
+    }
+
+    //executa
+    $scope.listarCasas();
+    $scope.listarPessoas();
+
+});
