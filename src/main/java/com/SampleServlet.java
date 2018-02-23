@@ -29,7 +29,7 @@ public final class SampleServlet extends HttpServlet {
 			final HttpServletResponse resp) throws IOException,
 			ServletException {
 		final RequestDispatcher dispatcher = req
-				.getRequestDispatcher("/WEB-INF/jsp/confirmation.jsp");
+				.getRequestDispatcher("/WEB-INF/confirmation.jsp");
 
 		dispatcher.forward(req, resp);
 	}
